@@ -67,3 +67,30 @@ Küçük kutu içinde modüler tasarım:
   4. Partikül Ölçümü: SPS30 sensörü piyasadaki en profesyonel olanın bir altı. Ama ayrı güç kaynağı gerekecek. Kutu içine konulmamalı, dışarıda bir tray içine yerleşmeli. I2C de pullup'a dikkat et. Gerçek ve hassas partikül ölçümü verir. Diğer sensör analizleri ile yorumlanıp havada polen mi, sigara dumanı mı, yemek dumanı mı tespit eder. (2.000 TL Civarı)
   5. Biyolojik Kontaminasyon: Bunu bu cihazla maalesef yapamayacağız. Ama polen ve küf partiküllerinin olup olmadığını yorumlayabiliriz.
   6. NO2 (Trafik hava kirliliği) sensörü: ZE07-NO2 çok iyi bir sensör. (Çin fiyatı 500 TL gibi ama nasıl gelecek bilmem)  ppm olarak veriyor. 2 sene sonra kalibre edilmeli. Daha basit olan MICS-6814 modeli rahatça bulunabilir (2.000 TL) ama profesyonel değil.Trend algılar ölçüm vermez. Bunu da ekleyince sistem mükemmel bir hava kalite ölçüm istasyonu olacak.
+
+### Su Kontaminasyon Sensörleri
+1. pH sensörü: Gravity Analog pH Sensörü V2 (2.500 TL civarı) Alt segment bir ölçüm cihazı. Çok daha iyisi ve işimize yarayanı 200$'lık Atlas'ın "Atlas Scientific PH Sensor Kit" ürünü. Olmazsa olmaz bir ölçüm için gerekli. Diğer sensörlerin yorumunu da etkiliyor. Uzun vadede stabil. Atlas ürünlerini "Creasis.shop" internet sitesinden bulabilirsin.
+2. EC / İletkenlik Sensörü: Atlas Scientific EZO EC Kit. (215 $) Su içindeki çözünmüş iyonları ölçer.Profesyonel sistemlerin temelidir. TDS buradan hesaplanır.
+3. Sıcaklık Sensörü: Diğer tüm sensör okumalarına etki eder. Ucuz ve stabil. DS18B20 Waterproof Temperature Sensor. ( 53 TL)
+4. ORP (oksidasyon / dezenfeksiyon) Sensörü: Atlas Scientific EZO ORP Kit (253 $) Su temiz mi okside mi görür. Klor etkisini ortaya çıkarır. Biyolojik risk analizinde kritiktir.
+5. Bulanıklık (fiziksel kirlilik) Sensörü: DFRobot Gravity Turbidity Sensor (730 TL) Pas, tortu, çamur, biyofilm tespiti yapar. Musluk filtrelerinin ve boruların kirliliğini verir.
+6. Klor ölçümü (reaktif + optik sistem): Bu sensör değil bir test kiti olacak. Testler suda çözülen haplarla kolayca yapılıyor. Bu haplar 400 TL ve 50 ölçüm yapılabilir. TCS34725 renk sensörüyle birlikte klor miktarını düzgün ölçem bir sistem yapılabilir. Profesyonel cihazlar da böyle çalışıyor.
+7. Nitrat ve Nitrit (Tarım ilacı / Gübre Testi): Bu da test olarak Kolorimetrik test (reaktif + optik) standartlarındadır. Bunu detaylı yazmalıyım. Her ikisi için de farklı rektif katılır, sonra TCS34725 renk sensörüyle renk okunarak değer hesaplanır. Özel koşullar gerekli. Test ortamı hiç ışık almamalı, aydınlatma ledi iyi seçilmeli. Mini manyetik karıştırıcı eklenmeli, Sensör stabil olmalı. Nitrit ölçümünde (NO2-) Griess Reaksiyonu yapılır. Bunun için kullanılan reaktifler: sulfanilamide N-(1-naphthyl)ethylenediamine dihydrochloride (NED). Bunlar karışınca nitrit varsa pembe renk çıkar. Konsantrasyon ile miktarı artar. Renk sensörü ile
+* RGB veya absorbans okur
+* Kalibrasyon eğrisi uygular
+* ppm değer hesaplar
+  Nitrat (NO3-) direkt hesaplanamaz. Önce indirgenir ve nitrite döndürülür. İndirgeme için cadmium reduction column kullanılır. Ardından nitrit'teki reaktiflerle aktive edilip rengi yorumlanır. Daha kolay olarak:
+* API nitrate test kit
+* JBL nitrate kit
+* Hach nitrate reagent kullanılabilir.
+  <br> Kutu tasarımında (çekmece) sabit dalga boylu led kullanılmalı. (520–540 nm). Okumalar küçük gelirse op-amp devresi ile yükseltilmelidir. Test iş akışı da şöyle olmalıdır:
+** Kullanıcı suyu koyar
+** Cihaz kapağı kapatır
+** Reaktif otomatik eklenir
+** 2–5 dk beklenir
+** LED yanar
+** sensör okur
+** sonuç hesaplanır
+8. Çözünmüş oksijen (DO) Sensörü: Atlas Scientific EZO DO Kit ile okunabilir. Suyun bir nevi biyolojik analizini yapar.(461 $)
+9. Fosfat ve Amonyak testleri için de kolorimetrik uygulama kullanılır.
+10. Sertlik (Ca, Mg): Sensör yerine reaktif test (EDTA titrasyon kitleri) ile sonuca ulaşılır.
