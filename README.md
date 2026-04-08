@@ -45,6 +45,9 @@ Küçük kutu içinde modüler tasarım:
 - Yan : Gaiger Tüpü
 - İç: ESP32 ve güç kaynağı
 
+  <img width="1536" height="1024" alt="ChatGPT Image 8 Nis 2026 15_55_03" src="https://github.com/user-attachments/assets/2b77f275-391c-4282-8031-32b7c3ba8d64" />
+
+
 ## Zorluklar:
 1. Radon ölçümü haftalarca tekrarlanmalı
 2. Geiger Tüpü ve gama: Analog sinyal darbeleri üretir. Saymak gerekir.
