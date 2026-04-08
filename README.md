@@ -61,5 +61,6 @@ Küçük kutu içinde modüler tasarım:
      VOC ↑ + CO2 ↑ → insan / kapalı ortam
      VOC ↑ + PM normal → kimyasal gaz (parfüm, temizlik)
      ```
-  4. Partikül Ölçümü: SPS30 sensörü piyasadaki en profesyonel olanın bir altı. Ama ayrı güç kaynağı gerekecek. Kutu içine konulmamalı, dışarıda bir tray içine yerleşmeli. I2C de pullup'a dikkat et. Gerçek ve hassas partikül ölçümü verir. Diğer sensör analizleri ile yorumlanıp havada polen mi, sigara dumanı mı, yemek dumanı mı tespit eder.
+  4. Partikül Ölçümü: SPS30 sensörü piyasadaki en profesyonel olanın bir altı. Ama ayrı güç kaynağı gerekecek. Kutu içine konulmamalı, dışarıda bir tray içine yerleşmeli. I2C de pullup'a dikkat et. Gerçek ve hassas partikül ölçümü verir. Diğer sensör analizleri ile yorumlanıp havada polen mi, sigara dumanı mı, yemek dumanı mı tespit eder. (2.000 TL Civarı)
   5. Biyolojik Kontaminasyon: Bunu bu cihazla maalesef yapamayacağız. Ama polen ve küf partiküllerinin olup olmadığını yorumlayabiliriz.
+  6. NO2 (Trafik hava kirliliği) sensörü: ZE07-NO2 çok iyi bir sensör. (Çin fiyatı 500 TL gibi ama nasıl gelecek bilmem)  ppm olarak veriyor. 2 sene sonra kalibre edilmeli. Daha basit olan MICS-6814 modeli rahatça bulunabilir (2.000 TL) ama profesyonel değil.Trend algılar ölçüm vermez. Bunu da ekleyince sistem mükemmel bir hava kalite ölçüm istasyonu olacak.
