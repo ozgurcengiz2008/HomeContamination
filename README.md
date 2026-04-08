@@ -84,13 +84,13 @@ Küçük kutu içinde modüler tasarım:
 * JBL nitrate kit
 * Hach nitrate reagent kullanılabilir.
   <br> Kutu tasarımında (çekmece) sabit dalga boylu led kullanılmalı. (520–540 nm). Okumalar küçük gelirse op-amp devresi ile yükseltilmelidir. Test iş akışı da şöyle olmalıdır:
-** Kullanıcı suyu koyar
-** Cihaz kapağı kapatır
-** Reaktif otomatik eklenir
-** 2–5 dk beklenir
-** LED yanar
-** sensör okur
-** sonuç hesaplanır
+  * Kullanıcı suyu koyar
+  *  Cihaz kapağı kapatır
+  *  Reaktif otomatik eklenir
+  *  2–5 dk beklenir
+  *  LED yanar
+  *  sensör okur
+  *  sonuç hesaplanır
 8. Çözünmüş oksijen (DO) Sensörü: Atlas Scientific EZO DO Kit ile okunabilir. Suyun bir nevi biyolojik analizini yapar.(461 $)
 9. Fosfat ve Amonyak testleri için de kolorimetrik uygulama kullanılır.
 10. Sertlik (Ca, Mg): Sensör yerine reaktif test (EDTA titrasyon kitleri) ile sonuca ulaşılır.
