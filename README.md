@@ -94,3 +94,30 @@ Küçük kutu içinde modüler tasarım:
 8. Çözünmüş oksijen (DO) Sensörü: Atlas Scientific EZO DO Kit ile okunabilir. Suyun bir nevi biyolojik analizini yapar.(461 $)
 9. Fosfat ve Amonyak testleri için de kolorimetrik uygulama kullanılır.
 10. Sertlik (Ca, Mg): Sensör yerine reaktif test (EDTA titrasyon kitleri) ile sonuca ulaşılır.
+
+## Ara Değerlendirme
+Başlandıçta bu kadar karmaşık bir sistem olacağını düşündüysem de özellikle su kontaminasyonu tayini için gereken kullanıcı taraflı testlerin zorluğu karşısında, en azından projenin bu ilk versiyonunda Su, radyasyon ve Elektromagnetik kontaminasyon tespitine ilişkin sensörleri çıkarmak zorunda kaldım. Bu durumda Hava kalitesini ölçen, log tutan, alarm veren ve yorum yapan bir sistemle yola devam etmeye karar verdim. Bu doğrultuda seçtiğim hava kontaminasyonu unsurları ve sensörleri şu şekilde belirlendi:
+| Parametre             | Sensör                           |
+| --------------------- | -------------------------------- |
+| CO₂                   | SCD41                            |
+| VOC                   | SGP40                            |
+| PM1/PM2.5/PM4/PM10    | SPS30                            |
+| CO                    | SPEC 3SP CO 0–3V + ADS1115       |
+| NO₂                   | ZE07-NO2                         |
+| Sıcaklık/Nem          | SHT31/SHT35                      |
+| Radon                 | RD200M / RadonEye tabanlı modül  |
+| **Metan / doğal gaz** | **TGS2611-E00 veya MPS Methane** |
+Bu durumda, sadece hava kalitesi gösteren ve piyasada 7.000 - 22.000 TL aralığında 2026 fiyatları ile satılan Çin menşeili ürünlere benzer bir sistem hazırlayacağım.
+
+# SİSTEMDE KULLANILACAK MİKROKONTROLCÜ VE EKRAN
+## Microcontroller 
+Uzun araştırmalarım sonucunda fiyat / performans oranını da düşünerek ESP32S3 Devkit C-1 N16R8 modelinde karar kıldım. İlk izlenimlerime göre bütün işi kaldıracak kapasitede. Wifi ve bluetooth bağlatıları da mevcut. Güvenlik sertifikası yüklenebiliyor. Küçük hacimli, pin sayısı 47. Sistemin omurgası için yeterli görünmekte. Sadece sistemde güç dağılımını iyi yapmak gerekiyor. Bunu ilerleyen safhalarda PSU değerlendirmesi ile birlikte ele alacağım.Bu anlamda aldığım işlemci oldukça ucuz yaklaşık 400 TL 2026 fiyatı ile ancak usb mikro ile çalışıyor. Bir daha alırken USB-C arabirimli olan modelini almak gerektiğini anladım.
+<img width="1024" height="1024" alt="YEUNULJKED8122025122743_ESP32-S3-DevKitC-1_N16R8_WiFi_ve_Bluetooth_gelisti" src="https://github.com/user-attachments/assets/6ff9ffa8-7afc-4c07-b7e5-ad8ad2b44c3b" />
+
+## Display
+Ekran konusunda, güzel görünmesini istediğimden ve özellikle ev kullanıcılarına yönelik User Friendly bir bilgi ekranı yapmak istediğimden, LCD ve Oled seçeneklerini eledim. Geriye kalan seçeneklerden fiyat olarak en uygun olanı TFT SPI ekranlar oldu. Öncelikle Ili9488 modeli ile deneme yaptım. Cihaz ekrana bilgileri istediğim gibi verdi. ancak benim istediğim kalitede bir çıktı almayı başaramadım. Bunun sebebinin LVGL altyapısını kullanamaması ve SPI olmaması olduğunu anladım. Tüm çabalarıma rağmen 8 bitte düzgün çalışan ekran 16 bit ve yüksek renk kalitesine, custom fontlara geçince abuk subuk görüntüler vermeye başladı. Bunun üzerine öncelikle arabirimimin yapay zeka yardımı ile neye benzeyeceği konusunda bir çalışma yaparak ilk taslağı ortaya çıkardım. Şöyle bir şey istediğime karar verdim:
+<img width="1536" height="1024" alt="ChatGPT Image 13 May 2026 13_28_11" src="https://github.com/user-attachments/assets/89ac4f35-2391-4635-98d6-1cda95b68a2d" />
+Böylece ekranı dokunmatik bir ekranla değiştirdim. Yine TFT 4" kullandım. Bu kez ST7796 SPI sipariş ettim. Hem ekran büyüdü, hem de 20 pin yerine sadece 4 pin kullanacağından mikro işlemcideki pin kontrolü daha kolay hale geldi. Siprarişim geldikten sonra Ekranın LVGL olarak nasıl çalıştığını test edeceğim. SPI'ın paralelden daha yavaş olduğunu biliyoruz, ama başka çarem kalmadı. İleride, TFT ekran yerine amoled ekran kullanmak istiyorum. Ancak fiyat farkı o kadar çok ki. 2026 TFT fiyatı 1.400 TL civarı iken Amoled ekranlar 4-7.000 TL ciavrı alınabiliyor. Daha büyük ve pahalı olmasının yanı sıra HDMI girişleri olduğundan ESP ile bağlantısını baştan düşünmek gerekecek.Bunun yerine belki mikroişlenciyi bile değiştirmeyi düşünebiliriz. Öncelikle TFT ekran ile sonuç alabilecek miyim ona bakacağım. İlk hedef ST7796 SPI
+<img width="300" height="300" alt="300px-MSP4021-002" src="https://github.com/user-attachments/assets/12fbe210-6683-482d-84a1-8bfe7c68e7eb" />.
+
+
