@@ -312,7 +312,8 @@ Fallback: (boş) `
 
 Font problemini hallettikten sonra GUI 'yi en iyi hale getirmeye çalıştım. Home, Wifi ve Settings ikonlarını LVGL'nin ikonlarından kullandım. Fontlar sıkıştırılmış olduğundan lv_conf.h dosyasında da compresyon olduğunu belirten satırı açtım. Bu konfig dosyasında daha başka ayarlamalar da yapmak gerekebiliyor. Bir de custom fontlarınızı kullanmadan evvel aynı isi ile deklere etmeniz gerekiyor.
 ``` LV_FONT_DECLARE(open_sans_bold_20);
-LV_FONT_DECLARE(open_sans_extrabold_32); ```
+LV_FONT_DECLARE(open_sans_extrabold_32);
+```
 
 GUI'de ana ekran yanı sıra Wifi bağlantısı için, SSID'leri gösteren ve şifre girilebilecek bir modal ekran da yapmak gerekti.
 Bu ana ekran temasının dışında, her bir sensör kartının üzerine basıldığında açılacak ve trend çizgilerini gösterecek ekranın da yapımını bitirdim.
@@ -322,6 +323,7 @@ Aldığım ekran üzerinde gelen ve SPI iletişimini kullanan bir de SD kart yuv
 
 ## Güç Dağılımı
 Sistemde genel olarak sensörler ve tüm ekipman 5-3.3V gerilim ile çalışmaktadır. Küçük sensörlerin gücü düşük olsa da (örn SGP40 VOC sensörü 20 mAh güçte) Ekran, SD Kart, ESP32 ve fan gibi yüksek güç çeken elemanlar mevcuttur. Bu sebeple 12V 5A'lik 60W gücünde bir adaptör ile enerji sağlanacaktır. Bu adaptör harici olup, 5.5 barrel uçtan cihaz içinde 2 ana regülatöre aktarılacaktır. Bu iki adet `XL4015` DC-DC converter temiz bir enerji girişi için kullanılacaktır. İki modül de ayarlanabilir olduğundan 5V ve 3.3V girişleri ayrılmış olacaktır. Ayrıca 5V olan 3A, 3.3 olanın maksimum 2A çekeceğini düşünerek de adaptörü 5A almaya karar verdim. Daha da temiz bir besleme için, sensör önlerine ve besleme girişlerinin çıkışlarına farklı kondansatörler koyulabilir, bunu değerlendireceğim.
+
 <img width="819" height="780" alt="xl4015-ayarlanabilir-gerilim-dusurucu-37445-97-B" src="https://github.com/user-attachments/assets/b1af6706-dfe2-4112-ace6-de3f92861767" />
 
 GPT'nin önerdiği güç dağılım şeması yaklaşık şöyle:
