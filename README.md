@@ -141,12 +141,6 @@ Sonunda siparişim geldi ve ekranı ESP32 ye ilgili kütüphaneleri indirip tan�
 | T_CS  | GPIO7    |
 | T_IRQ | GPIO6    |
 
-| SD CARD | ESP32-S3 |
-| ------- | -------- |
-| SD_CS   | GPIO5    |
-| SD_MOSI | GPIO11   |
-| SD_MISO | GPIO13   |
-| SD_SCK  | GPIO12   |
 
 Ekranda yaptığım testler olumlu sonuç verdi. Touch kalibrasyonu için aşağıdaki kodu kullandım:
 ``` 
@@ -321,6 +315,17 @@ Bu ana ekran temasının dışında, her bir sensör kartının üzerine basıld
 ## SD CARD ile LOGlama
 Aldığım ekran üzerinde gelen ve SPI iletişimini kullanan bir de SD kart yuvası olması işlerimi çok kolaylaştırdı. SD CS pini ile ESP'ye bağlayarak, tüm sensörlerden gelen verileri 10'ar saniye aralık ile SD karta CSV formatında yazdıran bir kod eklemem yetti. Böylece kullanıcı istediği taktirde SD karttan geçmişe yöenlik kayıtları 10 sn çözünürlükte görebilecektir. 16 GB'lık bir SD Card bu durumda 20 yıldan fazla süredeki veriyi tutabilecektir. Loglama, cihaz başladığı anda başlayacak olup, isteğe bağlı değildir. Ancak cihaz açılışta sensör check yaparken SD Card check'i de yaparak SD kart olmaması halinde log tutulmayacağını kullanıcıya bildirecektir.
 
+Ekranın SD kartının sorun çıkardığını görünce, bir Micro SD Card okuyucu modül eklemek zorunda kaldım. Çünkü ekranın SD kart okuyucusu 16MB karttan büyüğüne yazmayı başaramadı. Böylelikle SD KArta giden pinleri de değiştirip, SD SPI hattını HSPI düzeyine çekerek çakışmaları önledim. Ayrıca SD kart okuyucu 5V ile beslendiğinden ayırmak daha iyi oldu.. Bu modülü şu pin ayarları ile bağladım:
+
+| SD CARD | ESP32-S3 |
+|---------|----------|
+| GND     | GND      |
+| VCC     | 5V+      |
+| SD_CS   | GPIO5    |
+| SD_MOSI | GPIO42   |
+| SD_MISO | GPIO41   |
+| SD_SCK  | GPIO40   |
+
 ## Güç Dağılımı
 Sistemde genel olarak sensörler ve tüm ekipman 5-3.3V gerilim ile çalışmaktadır. Küçük sensörlerin gücü düşük olsa da (örn SGP40 VOC sensörü 20 mAh güçte) Ekran, SD Kart, ESP32 ve fan gibi yüksek güç çeken elemanlar mevcuttur. Bu sebeple 12V 5A'lik 60W gücünde bir adaptör ile enerji sağlanacaktır. Bu adaptör harici olup, 5.5 barrel uçtan cihaz içinde 2 ana regülatöre aktarılacaktır. Bu iki adet `XL4015` DC-DC converter temiz bir enerji girişi için kullanılacaktır. İki modül de ayarlanabilir olduğundan 5V ve 3.3V girişleri ayrılmış olacaktır. Ayrıca 5V olan 3A, 3.3 olanın maksimum 2A çekeceğini düşünerek de adaptörü 5A almaya karar verdim. Daha da temiz bir besleme için, sensör önlerine ve besleme girişlerinin çıkışlarına farklı kondansatörler koyulabilir, bunu değerlendireceğim.
 
@@ -356,3 +361,18 @@ GPT'nin önerdiği güç dağılım şeması yaklaşık şöyle:
         +--> CO2 sensörü                  +--> SD kart
         +--> fan/buzzer                   +--> analog devreler
 
+## SEN55 SDN-T Sensör
+Sistemime, yurt dışından getirdiğim SEN55 SDN-T sensörünü başarıyla ekledim. Bu sensör PM 1.0, PM 2.5, PM 4.0 ve PM 10 okumaları yanı sıra VOC ve Nox indexlerini vermekte. Ayrıca Sıcaklık ve Nem ölçümü de yapabilmekte. SEN55 kasaya yerleşimine çok dikkat etmek gerekecek. Zira hava yolu girinin ve çıkışının açık ve rahat olması gerekmekte. Datasheet incelemesinde şu şemayı buldum ve o şekilde bağladım:
+
+<img width="450" height="243" alt="Ekran görüntüsü 2026-06-24 120202" src="https://github.com/user-attachments/assets/5e5e7498-28c5-4fde-9312-3547e252c269" />
+
+ESP ile bağlantısını şu şekilde yaptım: 
+
+|  SEN55  | ESP32-S3 |
+|---------|----------|
+|Pin1:VCC | 5V+      |
+|Pin2:GND | GND      |
+|Pin3:SDA | GPIO 15  |
+|Pin4:SCL | GPIO 16  |
+|Pin5:SEL | GND      |
+|Pin6:NC  | -------- |
